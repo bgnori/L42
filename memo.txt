@@ -1,0 +1,102 @@
+
+言語(以下、仮にL42と呼ぶ)を作りたい
+
+全部いっぺんにつくると大変すぎて死ねる
+
+なので中間言語？のような物を考えて、
+
+ほしい構文を中間言語に変換する。
+で、中間言語を最終ターゲットに変換する
+
+最終ターゲット(たぶん上から順番にやっていく)
+
+* JavaScrip
+* C
+* Java Byte Code
+* ARMアセンブリ
+* x86アセンブリ
+
+中間言語(?名称募集中)にはyaml/json上でのlispとする
+
+* 処理するツールがたくさんある
+* 辞書がある
+* text, utf8 encodingを考えなくていい
+
+
+目標
+L42でL42の処理系を記述し、動かす
+
+
+どうブートストラップするか？
+0) Pythonとかで中間言語を最終ターゲットに変換する
+1) PythonとかでL42から中間言語に変換する
+2) L42でbinaryをいじることができるようにする
+3) L42でL42処理系を記述する. 0と１に相当する部分を記述する
+4) 0-2を用いて3)で記述した処理系を動かす
+
+
+
+
+L42にほしい機能とか性質とか
+
+- immutableが中心
+- Ducktyping
+- pattern match
+- object based, not class based, classはライブラリとして
+- 関数はfirst class object
+- reflection
+- メモリ管理とかをユーザがさわることができる、柔軟性
+- 低水準なこともできる. bit周りとか。(ライブラリで)
+- clousure
+- indentによるblock
+- 式。statementは避けたい
+- let
+- repl
+- channel (CSP)
+- 呼び出し時のdefault value for 引数
+- 記号は少なく
+- 括弧は少なく
+- readability counts
+- TCO
+
+
+
+defn sum x y z
+    x + y + z
+
+defn fib(n)
+    if n == 1
+        1
+    elif n == 2
+        1
+    else
+        fib(n - 1) + fib(n - 2)
+
+defn fib n
+    case n
+    when 1
+        1
+    when 2
+        2
+    otherwise
+        fib(n - 1) + fib(n - 2)
+
+defn enumerate xs n=0
+    case xs
+    when []
+       None     #???
+    when x::[]
+        (n, x)
+    when x::xs 
+        (n, x) :: enumerate(xs, n+1)
+        
+defn adder x
+    fn y
+        x + y
+
+defn foo a b c *d **e
+    None
+
+
+
+
